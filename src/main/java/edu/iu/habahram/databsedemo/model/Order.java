@@ -5,8 +5,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-import java.util.Date;
-
 @Entity
 @Table(schema = "lectures", name="orders")
 public class Order {
@@ -15,7 +13,7 @@ public class Order {
     private int id;
 
     private int flowerId;
-    private String recipientName;
+    private Recipient recipient;
     private float totalCost;
     private String customerUserName;
 
@@ -39,12 +37,12 @@ public class Order {
         this.flowerId = flowerId;
     }
 
-    public String getRecipientName() {
-        return recipientName;
+    public Recipient getRecipient() {
+        return recipient;
     }
 
-    public void setRecipientName(String recipientName) {
-        this.recipientName = recipientName;
+    public void setRecipient(Recipient recipient) {
+        this.recipient = recipient;
     }
 
     public float getTotalCost() {

@@ -4,15 +4,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-import java.util.Objects;
-
 @Entity
-@Table(schema = "lectures", name="customers")
+@Table(schema = "flowers", name = "customers")
 public final class Customer {
     @Id
-    private  String username;
-    private  String password;
-    private  String email;
+    private String username;
+    private String password;
+    private String email;
 
     public Customer() {
     }

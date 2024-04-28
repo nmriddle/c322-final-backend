@@ -6,13 +6,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(schema = "lectures", name = "flowers")
+@Table(schema = "flowers", name = "flowers")
 public class Flower {
     @Id
     @GeneratedValue
     private int id;
     private String name;
     private float cost;
+
+    private Type type;
+    private Occasion occasion;
+    private Color color;
 
     public Flower() {
     }
@@ -39,5 +43,29 @@ public class Flower {
 
     public void setCost(float cost) {
         this.cost = cost;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public Occasion getOccasion() {
+        return occasion;
+    }
+
+    public void setOccasion(Occasion occasion) {
+        this.occasion = occasion;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 }
