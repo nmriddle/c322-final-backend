@@ -1,5 +1,8 @@
 package edu.iu.habahram.databsedemo.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -70,6 +73,7 @@ public enum State {
         }
     }
 
+    @JsonCreator
     public static State valueOfName(final String name) {
         final String enumName = name.toUpperCase().replaceAll(" ", "_");
         try {
@@ -91,5 +95,10 @@ public enum State {
     @Override
     public String toString() {
         return name;
+    }
+
+    @JsonValue
+    public String toText() {
+        return toString();
     }
 }

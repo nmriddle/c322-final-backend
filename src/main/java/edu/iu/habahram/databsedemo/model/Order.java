@@ -6,14 +6,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(schema = "lectures", name="orders")
+@Table(schema = "flowers", name = "orders")
 public class Order {
     @Id
     @GeneratedValue
     private int id;
 
     private int flowerId;
-    private Recipient recipient;
+    private int recipientId;
     private float totalCost;
     private String customerUserName;
 
@@ -37,12 +37,12 @@ public class Order {
         this.flowerId = flowerId;
     }
 
-    public Recipient getRecipient() {
-        return recipient;
+    public int getRecipientId() {
+        return recipientId;
     }
 
-    public void setRecipient(Recipient recipient) {
-        this.recipient = recipient;
+    public void setRecipientId(int recipientId) {
+        this.recipientId = recipientId;
     }
 
     public float getTotalCost() {

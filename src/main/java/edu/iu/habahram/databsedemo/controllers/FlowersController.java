@@ -18,9 +18,7 @@ public class FlowersController {
     FlowersFileRepository flowersFileRepository;
     FlowersRepository flowersRepository;
 
-    public FlowersController(
-            FlowersFileRepository flowersFileRepository,
-            FlowersRepository flowersRepository) {
+    public FlowersController(FlowersFileRepository flowersFileRepository, FlowersRepository flowersRepository) {
         this.flowersFileRepository = flowersFileRepository;
         this.flowersRepository = flowersRepository;
     }
@@ -37,21 +35,29 @@ public class FlowersController {
         return flowers;
     }
 
+//    @GetMapping
+//    public Iterable<Flower> findAllSorted(@RequestParam(required = false, defaultValue = "false") boolean lowToHigh) {
+//        return lowToHigh ? flowersRepository.findAllByOrderByCostAsc() : flowersRepository.findAllByOrderByCostDesc();
+//    }
+
+    @GetMapping("/search")
+    public Iterable<Flower> search(@RequestBody Flower flower, @RequestParam(required = false, defaultValue = "false") boolean lowToHigh) {
+        Iterable<Flower> flowers = lowToHigh ? flowersRepository.findAllByOrderByCostAsc() : flowersRepository.findAllByOrderByCostDesc();
+        return flowersFileRepository.search(flowers, flower);
+    }
+
     @GetMapping("/{id}/image")
     public ResponseEntity<?> getImage(@PathVariable int id) {
         try {
             byte[] image = flowersFileRepository.getImage(id);
-            return ResponseEntity.status(HttpStatus.FOUND)
-                    .contentType(MediaType.IMAGE_PNG)
-                    .body(image);
+            return ResponseEntity.status(HttpStatus.FOUND).contentType(MediaType.IMAGE_PNG).body(image);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     @PostMapping("/{id}/image")
-    public boolean updateImage(@PathVariable int id,
-                               @RequestParam MultipartFile file) {
+    public boolean updateImage(@PathVariable int id, @RequestParam MultipartFile file) {
         try {
             return flowersFileRepository.updateImage(id, file);
         } catch (IOException e) {

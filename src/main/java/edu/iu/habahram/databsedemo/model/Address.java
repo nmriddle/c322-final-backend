@@ -1,11 +1,21 @@
 package edu.iu.habahram.databsedemo.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(schema = "flowers", name = "addresses")
 public class Address {
-    String address;
-    String aptSuite;
-    String city;
-    State state;
-    int zipCode;
+    @Id
+    @GeneratedValue
+    private int id;
+    private String address;
+    private String aptSuite;
+    private String city;
+    private State state;
+    private int zipCode;
 
     public Address() {
     }
@@ -56,5 +66,13 @@ public class Address {
 
     public void setZipCode(int zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

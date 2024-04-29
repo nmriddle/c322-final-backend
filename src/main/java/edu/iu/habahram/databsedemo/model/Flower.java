@@ -21,6 +21,14 @@ public class Flower {
     public Flower() {
     }
 
+    public Flower(String name, float cost, Type type, Occasion occasion, Color color) {
+        this.name = name;
+        this.cost = cost;
+        this.type = type;
+        this.occasion = occasion;
+        this.color = color;
+    }
+
     public int getId() {
         return id;
     }
