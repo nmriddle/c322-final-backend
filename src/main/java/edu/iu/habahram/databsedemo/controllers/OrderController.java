@@ -2,8 +2,10 @@ package edu.iu.habahram.databsedemo.controllers;
 
 import edu.iu.habahram.databsedemo.model.Address;
 import edu.iu.habahram.databsedemo.model.Order;
+import edu.iu.habahram.databsedemo.model.OrderItem;
 import edu.iu.habahram.databsedemo.model.Recipient;
 import edu.iu.habahram.databsedemo.repository.AddressRepository;
+import edu.iu.habahram.databsedemo.repository.OrderItemRepository;
 import edu.iu.habahram.databsedemo.repository.OrderRepository;
 import edu.iu.habahram.databsedemo.repository.RecipientRepository;
 import org.springframework.data.domain.Example;
@@ -23,12 +25,24 @@ public class OrderController {
     OrderRepository orderRepository;
     AddressRepository addressRepository;
     RecipientRepository recipientRepository;
+    OrderItemRepository orderItemRepository;
 
-    public OrderController(OrderRepository orderRepository, AddressRepository addressRepository, RecipientRepository recipientRepository) {
+
+    public OrderController(OrderRepository orderRepository, AddressRepository addressRepository, RecipientRepository recipientRepository, OrderItemRepository orderItemRepository) {
         this.orderRepository = orderRepository;
         this.addressRepository = addressRepository;
         this.recipientRepository = recipientRepository;
+        this.orderItemRepository = orderItemRepository;
     }
+
+    @PostMapping("/item")
+    public int addOrderItem(@RequestBody OrderItem orderItem) {
+//        String username = getTheCurrentLoggedInCustomer();
+//        order.setCustomerUserName(username);
+        OrderItem saved = orderItemRepository.save(orderItem);
+        return saved.getId();
+    }
+
 
     @PostMapping
     public int add(@RequestBody Order order) {

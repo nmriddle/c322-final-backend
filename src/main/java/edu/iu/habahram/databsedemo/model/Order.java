@@ -5,20 +5,38 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import java.util.Date;
+
 @Entity
 @Table(schema = "flowers", name = "orders")
 public class Order {
     @Id
     @GeneratedValue
     private int id;
-
-    private int flowerId;
-    private int recipientId;
     private float totalCost;
     private String customerUserName;
 
+    private Date date;
+
+    private String status;
 
     public Order() {
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public int getId() {
@@ -27,22 +45,6 @@ public class Order {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getFlowerId() {
-        return flowerId;
-    }
-
-    public void setFlowerId(int flowerId) {
-        this.flowerId = flowerId;
-    }
-
-    public int getRecipientId() {
-        return recipientId;
-    }
-
-    public void setRecipientId(int recipientId) {
-        this.recipientId = recipientId;
     }
 
     public float getTotalCost() {
