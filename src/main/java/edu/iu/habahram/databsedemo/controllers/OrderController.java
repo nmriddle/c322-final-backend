@@ -73,6 +73,17 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.OK).body(orders);
     }
 
+    @GetMapping("/item")
+    public ResponseEntity<List<OrderItem>> findAllItemsByCustomer() {
+        String username = getTheCurrentLoggedInCustomer();
+        System.out.println(username);
+        if (username.trim().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        List<OrderItem> orders = orderItemRepository.findOrderItemsByCustomerUserName(username);
+        return ResponseEntity.status(HttpStatus.OK).body(orders);
+    }
+
     @PostMapping("/search")
     public ResponseEntity<List<Order>> search(@RequestBody Order order) {
         String username = getTheCurrentLoggedInCustomer();
@@ -100,6 +111,11 @@ public class OrderController {
     @GetMapping("/recipient")
     public Iterable<Recipient> getAllRecipients() {
         return recipientRepository.findAll();
+    }
+
+    @GetMapping("/recipient/{id}")
+    public Recipient getRecipientById(@PathVariable int id) {
+        return recipientRepository.findById(id);
     }
 
     @GetMapping("/address")
