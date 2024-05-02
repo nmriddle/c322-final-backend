@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -35,13 +36,26 @@ public class FlowersController {
         return flowers;
     }
 
+    @GetMapping("/{id}")
+    public Flower get(@PathVariable int id) {
+        Optional<Flower> flowerOptional = flowersRepository.findById(id);
+        // Check if the flower exists
+        if (flowerOptional.isPresent()) {
+            return flowerOptional.get(); // Return the flower if found
+        } else {
+            // Handle case when flower with given ID is not found
+            // For example, you can return a 404 Not Found response
+            return null;
+        }
+    }
+
 //    @GetMapping
 //    public Iterable<Flower> findAllSorted(@RequestParam(required = false, defaultValue = "false") boolean lowToHigh) {
 //        return lowToHigh ? flowersRepository.findAllByOrderByCostAsc() : flowersRepository.findAllByOrderByCostDesc();
 //    }
 
-    @GetMapping("/search")
-    public Iterable<Flower> search(@RequestBody Flower flower, @RequestParam(required = false, defaultValue = "false") boolean lowToHigh) {
+    @PostMapping("/search/{lowToHigh}")
+    public Iterable<Flower> search(@RequestBody Flower flower, @PathVariable boolean lowToHigh) {
         Iterable<Flower> flowers = lowToHigh ? flowersRepository.findAllByOrderByCostAsc() : flowersRepository.findAllByOrderByCostDesc();
         return flowersFileRepository.search(flowers, flower);
     }
